@@ -123,6 +123,53 @@ void variance_cpu(float *x, float *mean, int batch, int filters, int spatial, fl
     }
 }
 
+void mean_cpu_group(float *x, int batch, int filters, int spatial, int groups, float *mean)
+{
+    float scale = 1./(filters / groups * spatial);
+    int group_filters = filters / groups;
+    int i,j,k;
+
+    for(i = 0; i < groups; ++i){
+        mean[i] = 0;
+        for(j = 0; j < batch; ++j){
+            for(k = 0; k < spatial * group_filters; ++k){
+                int index = j*filters*spatial + i*group_filters*spatial + k;
+                mean[i] += x[index];
+            }
+        }
+        mean[i] *= scale;
+    }
+
+    for(i = 0; i < filters; ++i){
+        if (filters % group_filters == 0) continue;
+        mean[i] = mean[filters/group_filters];
+    }
+}
+
+
+void variance_cpu_group(float *x, float *mean, int batch, int filters, int spatial, int groups, float *variance)
+{
+    float scale = 1./(filters / groups * spatial - 1);
+    int group_filters = filters / groups;
+    int i,j,k;
+
+    for(i = 0; i < groups; ++i){
+        variance[i] = 0;
+        for(j = 0; j < batch; ++j){
+            for(k = 0; k < spatial * group_filters; ++k){
+                int index = j*filters*spatial + i*group_filters*spatial + k;
+                variance[i] += pow((x[index] - mean[i]), 2);
+            }
+        }
+        variance[i] *= scale;
+    }
+
+    for(i = 0; i < filters; ++i){
+        if (filters % group_filters == 0) continue;
+        variance[i] = variance[filters/group_filters];
+    }
+}
+
 void l2normalize_cpu(float *x, float *dx, int batch, int filters, int spatial)
 {
     int b,f,i;

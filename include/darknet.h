@@ -78,6 +78,7 @@ typedef enum {
     LSTM,
     CRNN,
     BATCHNORM,
+    GROUPNORM,
     NETWORK,
     XNOR,
     REGION,
