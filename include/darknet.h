@@ -65,6 +65,7 @@ typedef enum {
     SOFTMAX,
     DETECTION,
     DROPOUT,
+    DROPPATH,
     CROP,
     ROUTE,
     COST,

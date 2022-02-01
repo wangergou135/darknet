@@ -137,7 +137,7 @@ char *get_layer_string(LAYER_TYPE a)
         case GRU:
             return "gru";
         case LSTM:
-	    return "lstm";
+	        return "lstm";
         case CRNN:
             return "crnn";
         case MAXPOOL:
@@ -156,6 +156,8 @@ char *get_layer_string(LAYER_TYPE a)
             return "yolo";
         case DROPOUT:
             return "dropout";
+        case DROPPATH:
+            return "droppath";
         case CROP:
             return "crop";
         case COST:
@@ -168,6 +170,8 @@ char *get_layer_string(LAYER_TYPE a)
             return "normalization";
         case BATCHNORM:
             return "batchnorm";
+        case GROUPNORM:
+            return "groupnorm";
         default:
             break;
     }

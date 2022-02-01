@@ -11,7 +11,10 @@ step 2: Write the poolformer in .cfg file
 <font color=#00ffff>1. GroupNorm cpu version added</font>
 
 
-<font color=#00ffff>2. DropPath cpu version soon</font>
+<font color=#00ffff>2. DropPath cpu version added</font>
+
+
+<font color=#00ffff>3. LayerScale cpu version soon</font>
 
 # poolformer layers #
 
